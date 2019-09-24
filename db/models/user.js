@@ -15,16 +15,12 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING
     },
     profile: {
-      type: DataTypes.STRING
+      type: DataTypes.INTEGER,
+      references: {
+      	model: Sequelize.models.profile,
+				key: 'id',
+     }
     }
   });
-
-  // user.associate = (models) => {
-    // user.hasMany(models.userItem, {
-    //   foreignKey: 'userId',
-    //   as: 'userItems',
-    // });
-  // };
-
   return user;
 };
