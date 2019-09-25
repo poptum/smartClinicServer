@@ -44,8 +44,14 @@ module.exports = (sequelize, DataTypes) => {
       indicacao: {
         type: DataTypes.STRING
       },
+      genero: {
+        type: DataTypes.STRING
+      },
       observacao: {
         type: DataTypes.STRING
+      },
+          etapa_cadastro: {
+        type: DataTypes.INTEGER
       },
       aluno: {
         type: DataTypes.INTEGER,

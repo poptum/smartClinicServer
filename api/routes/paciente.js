@@ -7,25 +7,43 @@ module.exports = function(router) {
   router.post("/paciente", auth,function(req, res) {
       return paciente
         .create(req.body)
-        .then(todo => res.status(201).send("usuario registrado"))
+        .then(user => res.status(200).send({mensagem:"Dados pessoais cadastrados", id:user.id}))
         .catch(error => console.log(error));
   });
-  router.post("/anamnese", auth,function(req, res) {
-    return anamnese
-      .create(req.body)
+  router.post("/paciente/update_etapa", auth,function(req, res) {
+    return paciente
+      .update({etapa_cadastro:req.body.etapa_cadastro}, { where: {id:req.body.id}})
       .then(todo => res.status(201).send("usuario registrado"))
+      .catch(error => console.log(error));
+});
+  router.post("/anamnese", auth,function(req, res) {
+    anamnese
+      .create(req.body)
+      .then(anamnese => {
+        paciente.update({anamnese:anamnese.id},{where:{id:req.body.paciente}}).then(paciente => {
+          res.status(200).send({mensagem:"Anamnese cadastrada", id:user.id})
+        })
+      })
       .catch(error => console.log(error));
 });
 router.post("/hmp", auth,function(req, res) {
     return hmp
       .create(req.body)
-      .then(todo => res.status(201).send("usuario registrado"))
-      .catch(error => console.log(error));
+      .then(hmp => {
+        paciente.update({hmp:hmp.id},{where:{id:req.body.paciente}}).then(paciente => {
+          res.status(200).send({mensagem:"História Médica Pregressa cadastrada", id:user.id})
+        })
+      })
+      .catch(error => console.log(error)); 
 });
-router.post("/historia_familiar", auth,function(req, res) {
+router.post("/historiaFamiliar", auth,function(req, res) {
     return historia_familiar
       .create(req.body)
-      .then(todo => res.status(201).send("usuario registrado"))
+      .then(historia_familiar => {
+        paciente.update({historia_familiar:historia_familiar.id},{where:{id:req.body.paciente}}).then(paciente => {
+          res.status(200).send({mensagem:"História familiar cadastrada", id:user.id})
+        })
+      })
       .catch(error => console.log(error));
 });
 
