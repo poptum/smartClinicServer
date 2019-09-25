@@ -20,7 +20,7 @@ module.exports = function(router) {
     anamnese
       .create(req.body)
       .then(anamnese => {
-        paciente.update({anamnese:anamnese.id},{where:{id:req.body.paciente}}).then(paciente => {
+        paciente.update({anamnese:anamnese.id, etapa_cadastro: req.body.etapa_cadastro},{where:{id:req.body.paciente}}).then(paciente => {
           res.status(200).send({mensagem:"Anamnese cadastrada", id:user.id})
         })
       })
@@ -30,7 +30,7 @@ router.post("/hmp", auth,function(req, res) {
     return hmp
       .create(req.body)
       .then(hmp => {
-        paciente.update({hmp:hmp.id},{where:{id:req.body.paciente}}).then(paciente => {
+        paciente.update({hmp:hmp.id, etapa_cadastro: req.body.etapa_cadastro},{where:{id:req.body.paciente}}).then(paciente => {
           res.status(200).send({mensagem:"História Médica Pregressa cadastrada", id:user.id})
         })
       })
@@ -40,7 +40,7 @@ router.post("/historiaFamiliar", auth,function(req, res) {
     return historia_familiar
       .create(req.body)
       .then(historia_familiar => {
-        paciente.update({historia_familiar:historia_familiar.id},{where:{id:req.body.paciente}}).then(paciente => {
+        paciente.update({historia_familiar:historia_familiar.id, etapa_cadastro: req.body.etapa_cadastro},{where:{id:req.body.paciente}}).then(paciente => {
           res.status(200).send({mensagem:"História familiar cadastrada", id:user.id})
         })
       })
